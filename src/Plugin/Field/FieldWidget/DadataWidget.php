@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * This DadataWidget for field.
+ */
+
 namespace Drupal\dadata_integration\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
@@ -23,6 +28,7 @@ class DadataWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
+
     return [
         'type_field' => 'none',
         'type_api' => 'suggest',
@@ -68,6 +74,7 @@ class DadataWidget extends WidgetBase {
       '#default_value' => $this->getSetting('count_item'),
       '#required' => TRUE,
     ];
+
     return $element;
   }
 
@@ -102,6 +109,7 @@ class DadataWidget extends WidgetBase {
         'count' => $this->getSetting('count_item'),
       ],
     ];
+
     return ['value' => $element];
   }
 

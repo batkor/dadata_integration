@@ -1,13 +1,25 @@
 <?php
 
+/**
+ * @file
+ * This routing for autocomplete data.
+ */
+
 namespace Drupal\dadata_integration\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Prophecy\Util\StringUtil;
 
+/**
+ * Class DadataIntegrationAutocomplete.
+ *
+ * @package Drupal\dadata_integration\Controller
+ */
 class DadataIntegrationAutocomplete {
 
+  /**
+   * {@inheritdoc}
+   */
   public function autocomplete(Request $request, $type_field = FALSE, $count = 0) {
     $matches = [];
     $input_string = $request->get('q', FALSE);
@@ -21,6 +33,9 @@ class DadataIntegrationAutocomplete {
     return new JsonResponse($matches);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   private function getData($input_string = '', $type_field = '', $count = 5) {
     $results = [];
     if (!empty($type_field) && $header_request = $this->getHeaderRequest()) {
@@ -43,6 +58,9 @@ class DadataIntegrationAutocomplete {
     return $results;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   private function getUrlData($type_field) {
     $urls = [
       'address' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
@@ -55,6 +73,9 @@ class DadataIntegrationAutocomplete {
     return $urls[$type_field];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   private function getHeaderRequest() {
     $result = FALSE;
     $config = \Drupal::getContainer()->get('config.factory')
