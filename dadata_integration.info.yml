@@ -1,5 +1,7 @@
-name: 'dadata_integration'
+name: 'Dadata integration'
 description: 'Integration Dadata service'
 type: module
+
+configure: dadata_integration.admin_settings
 
 core: 8.x

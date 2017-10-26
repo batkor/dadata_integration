@@ -1,0 +1,13 @@
+field.widget.settings.dadata_widget:
+  type: mapping
+  label: 'Dadata widget settings'
+  mapping:
+    type_field:
+      type: string
+      label: 'Type Field'
+    type_api:
+          type: string
+          label: 'Type API'
+    count_item:
+              type: integer
+              label: 'Count items'
