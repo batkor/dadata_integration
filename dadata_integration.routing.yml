@@ -12,4 +12,4 @@ dadata_integration.autocomplete:
   defaults:
     _controller: '\Drupal\dadata_integration\Controller\DadataIntegrationAutocomplete::autocomplete'
   requirements:
-    _permission: 'view content'
+    _access: 'TRUE'

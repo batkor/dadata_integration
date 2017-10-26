@@ -56,6 +56,7 @@ class DadataWidget extends WidgetBase {
         'fio' => 'ФИО',
         'party' => 'Организация',
         'bank' => 'Банк',
+        'email' => 'Email',
       ],
       '#default_value' => $this->getSetting('type_field'),
       '#required' => TRUE,

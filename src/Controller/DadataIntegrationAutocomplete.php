@@ -49,6 +49,7 @@ class DadataIntegrationAutocomplete {
       'fio' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fio',
       'party' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party',
       'bank' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/bank',
+      'email' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/email',
     ];
 
     return $urls[$type_field];
