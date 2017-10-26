@@ -53,6 +53,9 @@ class DadataWidget extends WidgetBase {
       '#options' => [
         'none' => t('None'),
         'address' => t('Address'),
+        'fio' => 'ФИО',
+        'party' => 'Организация',
+        'bank' => 'Банк',
       ],
       '#default_value' => $this->getSetting('type_field'),
       '#required' => TRUE,
@@ -91,13 +94,13 @@ class DadataWidget extends WidgetBase {
 
     $element += [
       '#type' => 'textfield',
+      '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
       '#autocomplete_route_name' => 'dadata_integration.autocomplete',
       '#autocomplete_route_parameters' => [
         'type_field' => $this->getSetting('type_field'),
         'count' => $this->getSetting('count_item'),
       ],
     ];
-    //    dsm($element);
     return ['value' => $element];
   }
 

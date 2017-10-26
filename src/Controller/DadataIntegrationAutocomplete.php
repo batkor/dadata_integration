@@ -46,6 +46,9 @@ class DadataIntegrationAutocomplete {
   private function getUrlData($type_field) {
     $urls = [
       'address' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
+      'fio' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fio',
+      'party' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party',
+      'bank' => 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/bank',
     ];
 
     return $urls[$type_field];
