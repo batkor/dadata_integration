@@ -30,10 +30,10 @@ class DadataWidgetEmail extends WidgetBase {
   public static function defaultSettings() {
 
     return [
-        'type_field' => 'email',
-        'type_api' => 'suggest',
-        'count_item' => 5,
-      ] + parent::defaultSettings();
+      'type_field' => 'email',
+      'type_api' => 'suggest',
+      'count_item' => 5,
+    ] + parent::defaultSettings();
   }
 
   /**

@@ -44,13 +44,13 @@ class DadataIntegrationAutocomplete {
       $client = \Drupal::httpClient();
       try {
         $request = $client->post($url, [
-            'headers' => $header_request,
-            'body' => $data_request,
-          ]
-        );
+          'headers' => $header_request,
+          'body' => $data_request,
+        ]);
         $result = $request->getBody()->getContents();
         $results = json_decode($result)->suggestions;
-      } catch (RequestException $e) {
+      }
+      catch (RequestException $e) {
         watchdog_exception('dadata_integration', $e);
       }
     }
@@ -93,3 +93,4 @@ class DadataIntegrationAutocomplete {
   }
 
 }
+

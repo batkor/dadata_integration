@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains dadata_integration.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function dadata_integration_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the import_product module.
+    case 'help.page.dadata_integration':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Dadata integration for you Drupal site') . '</p>';
+      return $output;
+
+    default:
+  }
+}

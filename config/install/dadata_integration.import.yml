@@ -1,1 +1,7 @@
-
+type_field:
+  none: 'Не выбрано'
+  address: 'Адрес'
+  fio: 'ФИО'
+  party: 'Организация'
+  bank: 'Банк'
+  email: 'Email'
