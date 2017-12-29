@@ -1,0 +1,18 @@
+.input_popup_address {
+  display: inline-block;
+  margin-right: 5px !important;
+}
+.set_address {
+  cursor: pointer;
+}
+.set_address_modal {
+  .form-item {
+    input {
+      width: 100%;
+    }
+  }
+  .streeet_house {
+    display: flex;
+    justify-content: space-between;
+  }
+}

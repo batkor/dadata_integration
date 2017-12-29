@@ -12,8 +12,8 @@ field.widget.settings.dadata_widget:
       type: integer
       label: 'Count items'
     type_field_settings:
-          type: string
-          label: 'Type Field Settings'
+      type: array
+      label: 'Type Field Settings'
 field.widget.settings.dadata_widget_email:
   type: mapping
   label: 'Dadata widget for email settings'

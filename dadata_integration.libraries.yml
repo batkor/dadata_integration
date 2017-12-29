@@ -1,0 +1,11 @@
+dadata_integration_lib:
+  css:
+    theme:
+      assets/style/css/dadata_integration.css: {}
+      'https://cdn.jsdelivr.net/npm/suggestions-jquery@latest/dist/css/suggestions.min.css': { type: external }
+  js:
+    https://cdn.jsdelivr.net/npm/suggestions-jquery@latest/dist/js/jquery.suggestions.min.js: { type: external, minified: true }
+    assets/js/dadata_integration_use.js: {}
+  dependencies:
+    - core/drupalSettings
+    - core/jquery.once

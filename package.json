@@ -1,0 +1,29 @@
+{
+  "name": "dadata_integration",
+  "version": "1.0.0",
+  "description": "*** Привет / Hi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/batkor/dadata_integration.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/batkor/dadata_integration/issues"
+  },
+  "homepage": "https://github.com/batkor/dadata_integration#readme",
+  "devDependencies": {
+    "autoprefixer-core": "^6.0.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sass-bulk-import": "^1.0.1",
+    "gulp-sourcemaps": "^2.6.1"
+  }
+}
