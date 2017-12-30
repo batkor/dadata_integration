@@ -8,17 +8,7 @@
       //created array popup windows
       setting_dadata['set_address_popup'] = 'set_address_popup' in setting_dadata ? setting_dadata['set_address_popup'] : [];
       var set_address_popup = setting_dadata['set_address_popup'];
-      // $('.input_popup_address').once('input_popup_address_elems').each(function
-      // (ind, elem) { var input_address = $(elem).find('input[type="text"]');
-      // var text_link = (input_address.val() === '') ? 'Add address' : 'Edit
-      // address'; $(elem).after('<span class="set_address">[ <span
-      // class="link">' + Drupal.t(text_link) + '</span> ]</span>');
-      // $(elem).parent().once('set_address_popup').on('click', '.set_address',
-      // function (e) { var new_var = randomInteger(0, 100);
-      // $('input[type="text"]', elem).once('new_value_'+
-      // ind).attr('',new_var); console.log(new_var) }) }) function
-      // randomInteger(min, max) { var rand = min - 0.5 + Math.random() * (max
-      // - min + 1) rand = Math.round(rand); return rand; }
+
       $('[class*="input_popup_address"]').once('input_popup_address_elems').each(function (ind, elem) {
         var input_address = $(elem).find('input[type="text"]');
         var text_link = (input_address.val() === '') ? 'Add address' : 'Edit address';
