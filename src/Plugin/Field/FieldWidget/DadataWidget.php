@@ -145,7 +145,7 @@ class DadataWidget extends WidgetBase {
     if ($this->getSetting('type_field_address')) {
       $elem += [
         '#wrapper_attributes' => [
-          'class' => ['input_popup_address'],
+          'class' => ['input_popup_address_' . $delta],
         ],
       ];
       $config = \Drupal::getContainer()->get('config.factory')

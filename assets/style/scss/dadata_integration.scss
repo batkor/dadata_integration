@@ -1,11 +1,11 @@
-.input_popup_address {
+[class*="input_popup_address"] {
   display: inline-block;
   margin-right: 5px !important;
 }
 .set_address {
   cursor: pointer;
 }
-.set_address_modal {
+[class*="set_address_modal"] {
   .form-item {
     input {
       width: 100%;

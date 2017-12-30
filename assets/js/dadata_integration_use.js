@@ -1,20 +1,35 @@
 (function ($, window, Drupal, drupalSettings) {
   Drupal.behaviors.dadataIntegration = {
     attach: function (context, drupalSettings) {
-      var api_key = drupalSettings.dadata_integration.api_key;
-      $('.input_popup_address').once('input_popup_address_elems').each(function (ind, elem) {
+      //get setting dadata_integration modules
+      var setting_dadata = drupalSettings.dadata_integration;
+      //set api key
+      var api_key = setting_dadata.api_key;
+      //created array popup windows
+      setting_dadata['set_address_popup'] = 'set_address_popup' in setting_dadata ? setting_dadata['set_address_popup'] : [];
+      var set_address_popup = setting_dadata['set_address_popup'];
+      // $('.input_popup_address').once('input_popup_address_elems').each(function
+      // (ind, elem) { var input_address = $(elem).find('input[type="text"]');
+      // var text_link = (input_address.val() === '') ? 'Add address' : 'Edit
+      // address'; $(elem).after('<span class="set_address">[ <span
+      // class="link">' + Drupal.t(text_link) + '</span> ]</span>');
+      // $(elem).parent().once('set_address_popup').on('click', '.set_address',
+      // function (e) { var new_var = randomInteger(0, 100);
+      // $('input[type="text"]', elem).once('new_value_'+
+      // ind).attr('',new_var); console.log(new_var) }) }) function
+      // randomInteger(min, max) { var rand = min - 0.5 + Math.random() * (max
+      // - min + 1) rand = Math.round(rand); return rand; }
+      $('[class*="input_popup_address"]').once('input_popup_address_elems').each(function (ind, elem) {
         var input_address = $(elem).find('input[type="text"]');
-        var text_link = (input_address.val() === '') ? 'Add address' : 'New address';
+        var text_link = (input_address.val() === '') ? 'Add address' : 'Edit address';
         $(elem).after('<span class="set_address">[ <span class="link">' + Drupal.t(text_link) + '</span> ]</span>');
         $(elem).parent().once('set_address_popup').on('click', '.set_address', function (e) {
           var items_address = [
             $("<div>", {
               class: 'content',
               append: [
-                createdElem('region', 'form-item', 'Регион', ''),
-                createdElem('area', 'form-item', 'Район', ''),
-                createdElem('city', 'form-item', 'Город', ''),
-                createdElem('settlement', 'form-item', 'Населенный пункт', ''),
+                createdElem('region_area', 'form-item', 'Регион / район:', ''),
+                createdElem('city_settlement', 'form-item', 'Город / населенный пункт:', ''),
                 $('<div>', {
                   class: 'streeet_house',
                   append: [
@@ -25,35 +40,38 @@
               ]
             })
           ];
-          var set_address_popup = Drupal.dialog(items_address, {
-            title: text_link,
-            dialogClass: 'set_address_modal_' + ind,
-            width: 500,
-            autoResize: true,
-            buttons: [
-              {
-                text: 'Close',
-                icons: {
-                  primary: 'ui-icon-close'
+          if (!(ind in set_address_popup)) {
+            set_address_popup[ind] = Drupal.dialog(items_address, {
+              title: text_link,
+              dialogClass: 'set_address_modal_' + ind,
+              width: 500,
+              autoResize: true,
+              buttons: [
+                {
+                  text: 'Close',
+                  icons: {
+                    primary: 'ui-icon-close'
+                  },
+                  click: function () {
+                    $(this).dialog('close');
+                  }
                 },
-                click: function () {
-                  $(this).dialog('close');
+                {
+                  text: text_link,
+                  icons: {
+                    primary: 'ui-icon-check'
+                  },
+                  click: function () {
+                    var elem_set_new_val = $('.input_popup_address_' + ind + ' input[type="text"]');
+                    elem_set_new_val.val(getNewAddress('.set_address_modal_' + ind));
+                    $(this).dialog('close');
+                    $(elem).parent().find('.set_address .link').text(Drupal.t('Edit address'))
+                  }
                 }
-              },
-              {
-                text: text_link,
-                icons: {
-                  primary: 'ui-icon-check'
-                },
-                click: function () {
-                  $(elem).find('input[type="text"]').val(getNewAddress('.set_address_modal_' + ind));
-                  $(this).dialog('close');
-                  $(elem).parent().find('.set_address .link').text(Drupal.t('New address'))
-                }
-              }
-            ]
-          });
-          set_address_popup.showModal();
+              ]
+            });
+          }
+          set_address_popup[ind].showModal();
           initDatataWidget('.set_address_modal_' + ind);
         });
       })
@@ -81,38 +99,22 @@
         var
             token = api_key,
             type = "ADDRESS",
-            region = $(elem).find("#region"),
-            area = $(elem).find("#area"),
-            city = $(elem).find("#city"),
-            settlement = $(elem).find("#settlement"),
+            region = $(elem).find("#region_area"),
+            city = $(elem).find("#city_settlement"),
             street = $(elem).find("#street"),
             house = $(elem).find("#house");
         region.suggestions({
           token: token,
           type: type,
           hint: false,
-          bounds: "region"
-        });
-        area.suggestions({
-          token: token,
-          type: type,
-          hint: false,
-          bounds: "area",
-          constraints: region
+          bounds: "region-area"
         });
         city.suggestions({
           token: token,
           type: type,
           hint: false,
-          bounds: "city",
-          constraints: area
-        });
-        settlement.suggestions({
-          token: token,
-          type: type,
-          hint: false,
-          bounds: "settlement",
-          constraints: city
+          bounds: "city-settlement",
+          constraints: region
         });
         street.suggestions({
           token: token,
@@ -132,16 +134,12 @@
 
       function getNewAddress(elem) {
         var output = '',
-            region = $(elem).find("#region"),
-            area = $(elem).find("#area"),
-            city = $(elem).find("#city"),
-            settlement = $(elem).find("#settlement"),
+            region = $(elem).find("#region_area"),
+            city = $(elem).find("#city_settlement"),
             street = $(elem).find("#street"),
             house = $(elem).find("#house");
         output = region.val();
-        output += (area.val() === '') ? '' : ', ' + area.val();
         output += (city.val() === '') ? '' : ', ' + city.val();
-        output += (settlement.val() === '') ? '' : ', ' + settlement.val();
         output += (street.val() === '') ? '' : ', ' + street.val();
         output += (house.val() === '') ? '' : ', ' + house.val();
         return output;

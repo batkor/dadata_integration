@@ -7,5 +7,7 @@ dadata_integration_lib:
     https://cdn.jsdelivr.net/npm/suggestions-jquery@latest/dist/js/jquery.suggestions.min.js: { type: external, minified: true }
     assets/js/dadata_integration_use.js: {}
   dependencies:
+    - core/jquery
     - core/drupalSettings
+    - core/jquery.ui
     - core/jquery.once
