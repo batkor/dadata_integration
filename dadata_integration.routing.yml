@@ -1,5 +1,5 @@
 dadata_integration.admin_settings:
-  path: '/admin/config/user-interface/dadata_integration'
+  path: '/admin/config/user-interface/dadata'
   defaults:
     _form: '\Drupal\dadata_integration\Form\DadataIntegrationFormSetting'
     _title: 'Dadata Integration'
@@ -7,9 +7,3 @@ dadata_integration.admin_settings:
     _permission: 'access administration pages'
   options:
     _admin_route: TRUE
-dadata_integration.autocomplete:
-  path: '/dadata_integration/autocomplete/{type_field}/{count}'
-  defaults:
-    _controller: '\Drupal\dadata_integration\Controller\DadataIntegrationAutocomplete::autocomplete'
-  requirements:
-    _access: 'TRUE'

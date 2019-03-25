@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains dadata_integration.module.
+ * Contains dadata.module.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -13,7 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 function dadata_integration_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     // Main module help for the import_product module.
-    case 'help.page.dadata_integration':
+    case 'help.page.dadata':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Dadata integration for you Drupal site') . '</p>';
@@ -21,4 +21,35 @@ function dadata_integration_help($route_name, RouteMatchInterface $route_match) 
 
     default:
   }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function dadata_integration_page_attachments(array &$attachments) {
+
+  $config = \Drupal::config('dadata_integration.import');
+
+  $attachments['#attached']['library'][] = 'dadata_integration/finder';
+
+  $module_dir = drupal_get_path('module', 'dadata_integration');
+  $attachments['#attached']['drupalSettings']['dadata'] = [
+    'builder' => [
+      'path' => "/{$module_dir}/assets/js/dist/dadata_init.js",
+      'is_attach' => FALSE,
+    ],
+    'api_key' => $config->get('api_key'),
+    'elements' => $config->get('elements'),
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function dadata_integration_form_contact_message_feedback_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['field_email']['widget']['0']['value']['#attributes']['class'][] = 'dd-email';
+  $form['field_name']['widget']['0']['value']['#attributes']['class'][] = 'dd-fio';
+  $form['field_org']['widget']['0']['value']['#attributes']['class'][] = 'dd-party';
+  $form['field_bank']['widget']['0']['value']['#attributes']['class'][] = 'dd-bank';
+  $form['field_address']['widget']['0']['value']['#attributes']['class'][] = 'dd-address';
 }

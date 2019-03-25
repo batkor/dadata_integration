@@ -1,7 +1,28 @@
-type_field:
-  none: 'Не выбрано'
-  address: 'Адрес'
-  fio: 'ФИО'
-  party: 'Организация'
-  bank: 'Банк'
-  email: 'Email'
+api_key: ''
+elements:
+  -
+    api: fio
+    selector: .dd-fio
+    count: 10
+  -
+    api: 'email'
+    selector: '.dd-email'
+    count: 10
+  -
+    api: 'address'
+    selector: '.dd-address'
+    count: 10
+    locations:
+      region: 'Иркутская'
+  -
+    api: 'party'
+    selector: '.dd-party'
+    count: 10
+    status: 'ACTIVE'
+    type: 'LEGAL'
+  -
+    api: 'bank'
+    selector: '.dd-bank'
+    count: 10
+    status: 'ACTIVE'
+    type: 'BANK'

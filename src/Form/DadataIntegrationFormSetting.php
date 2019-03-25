@@ -9,6 +9,7 @@ namespace Drupal\dadata_integration\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Serialization\Yaml;
 
 /**
  * Class DadataIntegrationFormSetting.
@@ -37,45 +38,38 @@ class DadataIntegrationFormSetting extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $config = $this->config('dadata_integration.import');
-    $form['#tree'] = TRUE;
-    $form['container'] = [
-      '#type' => 'vertical_tabs',
-    ];
-    $form['main_tab'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Main settings'),
-      '#group' => 'container',
-    ];
-    $form['main_tab']['api_key'] = [
-      '#title' => $this->t('API key'),
-      '#type' => 'textfield',
-      '#default_value' => $config->get('api_key') ? $config->get('api_key') : NULL,
-      '#description' => $this->t('Your IP address is the key. if you do not have it then get it <a href="https://dadata.ru/" target="_blank">https://dadata.ru</a>'),
-    ];
-    $form['form_reg_tab'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Forms'),
-      '#group' => 'container',
-    ];
-    $form['form_reg_tab']['status_messages'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#value' => $this->t('Section in the development. You can contact us for individual development'),
-    ];
 
+    $output = Yaml::encode($config->getOriginal());
+
+    $form['config'] = array(
+      '#type' => 'textarea',
+      '#title' => $this->t('Config'),
+      '#default_value' => $output,
+      '#rows' => 36,
+      '#required' => TRUE,
+    );
 
     return parent::buildForm($form, $form_state);
+  }
+
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $new_value = Yaml::decode($form_state->getValue('config'));
+    if (is_array($new_value)) {
+      $form_state->setValue('new_value', $new_value);
+    }
+    else {
+      $form_state->setErrorByName('config', $this->t('Invalid input'));
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    parent::submitForm($form, $form_state);
     $config = $this->config('dadata_integration.import');
-    $config->set('api_key', $form_state->getValue(['main_tab', 'api_key']));
+    $config->setData($form_state->getValue('new_value'));
     $config->save();
-
+    parent::submitForm($form, $form_state);
   }
 
 }

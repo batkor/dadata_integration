@@ -1,0 +1,20 @@
+.dd_wrapper{
+  box-shadow: 0 0 5px;
+  position: absolute;
+  background: white;
+  z-index: 1;
+}
+.dd_wrapper .item{
+  display: inline-block;
+  width: 100%;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #dfdfdf;
+  box-sizing: border-box;
+}
+.dd_wrapper .item:last-child{
+  border-bottom: none;
+}
+.dd_wrapper .item:hover{
+  color: #2559b3;
+}
