@@ -5,42 +5,24 @@
  * Contains dadata.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
-
-/**
- * Implements hook_help().
- */
-function dadata_integration_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    // Main module help for the import_product module.
-    case 'help.page.dadata':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Dadata integration for you Drupal site') . '</p>';
-      return $output;
-
-    default:
-  }
-}
-
 /**
  * Implements hook_page_attachments().
  */
 function dadata_integration_page_attachments(array &$attachments) {
-
   $config = \Drupal::config('dadata_integration.import');
-
-  $attachments['#attached']['library'][] = 'dadata_integration/finder';
-
   $module_dir = drupal_get_path('module', 'dadata_integration');
+  $attachments['#attached']['library'][] = 'dadata_integration/finder';
   $attachments['#attached']['drupalSettings']['dadata'] = [
     'builder' => [
       'path' => "/{$module_dir}/assets/js/dist/dadata_init.js",
+      'style' => "/{$module_dir}/assets/style/css/dadata.css",
+      'elements' => $config->get('elements'),
       'is_attach' => FALSE,
     ],
     'api_key' => $config->get('api_key'),
-    'elements' => $config->get('elements'),
   ];
+  // Call hook_dadata_attach_alter().
+  \Drupal::moduleHandler()->alter('dadata_attach', $attachments);
 }
 
 /**

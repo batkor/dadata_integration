@@ -159,51 +159,17 @@
   }
 
   Drupal.behaviors.DadataInit = {
-    settings: [
-      {
-        api: 'fio',
-        selector: '.dd-fio',
-        count: 10,
-        // parts: 'NAME' // NAME, SURNAME, PATRONYMIC
-      },
-      {
-        api: 'email',
-        selector: '.dd-email',
-        count: 10
-      },
-      {
-        api: 'address',
-        selector: '.dd-address',
-        count: 10,
-        locations: [
-          {
-            region: 'Иркутская',
-          }
-        ]
-      },
-      {
-        api: 'party',
-        selector: '.dd-party',
-        count: 10,
-        status: 'ACTIVE', // ACTIVE, LIQUIDATING, LIQUIDATED
-        type: 'LEGAL' // LEGAL, INDIVIDUAL
-        // locations: {kladr_id: ''}
-      },
-      {
-        api: 'bank',
-        selector: '.dd-bank',
-        count: 10,
-        status: 'ACTIVE', // ACTIVE, LIQUIDATING, LIQUIDATED
-        type: 'BANK' // BANK, NKO, BANK_BRANCH, NKO_BRANCH, RKC, OTHER
-      },
-    ],
-    attach: function (context, settings) {
+    settings: [],
+    attach: function (context, settings, elements) {
       context = context || document;
       settings = settings || drupalSettings;
-
+      this.settings = elements || settings.dadata.builder.elements;
       // Create dadate object.
-      let dadata = new Dadata('1913d40c78a306e7cade456ea5fdb499696dfac3');
+      let dadata = new Dadata(settings.dadata.api_key);
       for (let key of Object.keys(this.settings)) {
+        if (!this.settings[key].is_found) {
+          return;
+        }
         let elems = context.querySelectorAll(this.settings[key].selector);
 
         if (elems.length) {
