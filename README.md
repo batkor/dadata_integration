@@ -18,7 +18,7 @@
 
 ##### <span name="config_desc">Описание конфигурации</span>
 - `api_key`: Ваш уникальный id из сервиса Dadata;
-- `elements`: Список элементов для ккоторыйх требуется подключить сервис;
+- `elements`: Список элементов для которых требуется подключить сервис;
   - `api`: Укажите какой сервис вам необходим:
     - `fio`: Поле с поддержкой ФИО, [подробнее тут](https://confluence.hflabs.ru/pages/viewpage.action?pageId=204669115);
     - `email`: Поле с поддержкой Email, [подробнее тут](https://confluence.hflabs.ru/pages/viewpage.action?pageId=234782803);
