@@ -9,6 +9,7 @@
 3. Ознакомьтесь с документацией [DadataAPI](https://confluence.hflabs.ru/pages/viewpage.action?pageId=204669094);
 4. [Краткое описание](#config_desc) формирования конфигурации. При необходимости вы найдете описания в соответствующих методах;
 5. [Описание работы модуля](#who_is_work).
+6. [Превью](#preview)
 
 
 ##### <span name="who_is_work">Как это работает?</span>
@@ -58,3 +59,5 @@ elements:
     status: ACTIVE
     type: BANK
 ```
+##### <span name="preview">Превью</span>
+![Drupal 8 Dadata](https://i.ibb.co/mhhQDQh/dadata.gif)
