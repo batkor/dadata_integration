@@ -23,7 +23,7 @@ Drupal.behaviors.DadataInit = {
           // Add class for init only once.
           elem.classList.add('dadata_init');
           // Add event change value.
-          elem.oninput = this.debounce(() => {
+          elem.oninput = Drupal.debounce(() => {
             let params = Object.assign({
               query: elem.value
             }, this.settings[key]);
@@ -41,30 +41,6 @@ Drupal.behaviors.DadataInit = {
       }
     }
 
-  },
-  /**
-   * Debounce function.
-   * @see https://gist.github.com/ethyde/d56b12d8dbe2d7a327f2628b6fdd2f9f
-   *
-   * @param func
-   * @param wait
-   * @param immediate
-   * @returns {Function}
-   */
-  debounce: function (func, wait, immediate) {
-    var timeout;
-    return function() {
-      var context = this,
-          args = arguments;
-      var later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
   },
   /**
    * Add event and UI|UX for popup wrapper and items.

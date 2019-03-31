@@ -3,6 +3,7 @@ finder:
     assets/js/dist/dadata_finder.js: {}
   dependencies:
     - dadata/style
+    - core/drupal.debounce
 style:
   css:
     base:
